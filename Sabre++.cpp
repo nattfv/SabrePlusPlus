@@ -9,36 +9,33 @@
 #include <iostream>
 #include "Board.h"
 #include "Field.h"
+#include "TileBag.h"
 #include <cstring>
-
-#define PRINT_TEST(cout, a) (cout << ((a) ? "OK" : "FAIL") << endl)
 
 using namespace std;
 
-bool testWord(Board *board) {
+void testWord(Board *board, TileBag *bag) {
 	char *word;
-	board->get(1, 1)->put(new Tile('a', 1));
-	board->get(1, 2)->put(new Tile('b', 1));
-	board->get(1, 3)->put(new Tile('c', 1));
-	board->get(1, 4)->put(new Tile('d', 1));
-	board->get(0, 3)->put(new Tile('e', 1));
-	board->get(2, 3)->put(new Tile('f', 1));
-	board->get(3, 3)->put(new Tile('g', 1));
-	board->get(4, 3)->put(new Tile('h', 1));
+	board->get(1, 1)->put(bag->getTile());
+	board->get(1, 2)->put(bag->getTile());
+	board->get(1, 3)->put(bag->getTile());
+	board->get(1, 4)->put(bag->getTile());
+	board->get(0, 3)->put(bag->getTile());
+	board->get(2, 3)->put(bag->getTile());
+	board->get(3, 3)->put(bag->getTile());
+	board->get(4, 3)->put(bag->getTile());
 
 	word = board->get(1, 2)->getWord(Field::EAST);
-	if (strcmp(word, "abcd"))
-		return false;
+	cout << word << endl;
 	word = board->get(3, 3)->getWord(Field::SOUTH);
-	if (strcmp(word, "ecfgh"))
-		return false;
-	return true;
+	cout << word << endl;
 }
 
 int main() {
 	Board board = Board(5, 6);
-	board.printBoard(cout);
+	TileBag bag;
 
-	PRINT_TEST(cerr, testWord(&board));
+	testWord(&board, &bag);
+	board.printBoard(cout);
 	return 0;
 }
