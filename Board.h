@@ -11,6 +11,10 @@
 #include <vector>
 #include <iostream>
 
+#ifndef MAX
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#endif
+
 class Field;
 
 class Board {
@@ -20,6 +24,9 @@ public:
 	}
 
 	Field *get(int x, int y);
+	int getX() const;
+	int getY() const;
+	int getMaxWordSize() const;
 	void printBoard(std::ostream &) const;
 
 	virtual ~Board() {

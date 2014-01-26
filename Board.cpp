@@ -19,15 +19,27 @@ Board::Board(int x, int y) {
 	}
 }
 
-	Field *Board::get(int x, int y) {
-		return fields[x][y];
-	}
+Field *Board::get(int x, int y) {
+	return fields[x][y];
+}
 
-	void Board::printBoard(std::ostream& os) const {
-		for (int i = 0; i < fields.size(); ++i) {
-			for (int j = 0; j < fields[0].size(); ++j) {
-				os << *fields[i][j];
-			}
-			os << std::endl;
+void Board::printBoard(std::ostream& os) const {
+	for (int i = 0; i < fields.size(); ++i) {
+		for (int j = 0; j < fields[0].size(); ++j) {
+			os << *fields[i][j];
 		}
+		os << std::endl;
 	}
+}
+
+int Board::getX() const {
+	return fields.size();
+}
+
+int Board::getY() const {
+	return fields[0].size();
+}
+
+int Board::getMaxWordSize() const {
+	return MAX(fields.size(), fields[0].size());
+}

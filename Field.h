@@ -9,7 +9,7 @@
 #define FIELD_H_
 
 #include <iostream>
-#include "Letter.h"
+#include "Tile.h"
 
 class Board;
 
@@ -18,7 +18,7 @@ public:
 	enum Dir {NORTH, EAST, SOUTH, WEST};
 
 	Field(int _x, int _y, Board *b) :
-			x(_x), y(_y), letter(NULL), board(b) {
+			x(_x), y(_y), tile(NULL), board(b) {
 	}
 
 	virtual ~Field() {
@@ -26,8 +26,10 @@ public:
 
 	int getX() const;
 	int getY() const;
-	const Letter *get() const;
-	void put(Letter *);
+	const Tile *get() const;
+	void put(Tile *);
+	bool isFree();
+	char *getWord(Dir dir) const;
 
 	Field *getNeighbour(Dir dir);
 
@@ -38,7 +40,7 @@ public:
 private:
 	int x;
 	int y;
-	Letter *letter;
+	Tile *tile;
 	Board *board;
 };
 
