@@ -19,6 +19,8 @@ class Field;
 
 class Board {
 public:
+	enum Dir {NORTH, EAST, SOUTH, WEST, WRONG};
+
 	Board(int x, int y);
 	Board(const Board& orig) {
 	}

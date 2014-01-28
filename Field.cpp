@@ -18,7 +18,7 @@ int Field::getY() const {
 	return y;
 }
 
-const Tile *Field::get() const {
+Tile *Field::get() const {
 	return tile;
 }
 
@@ -37,16 +37,18 @@ bool Field::operator<(const Field &second) const {
 		return y < second.y;
 }
 
-Field *Field::getNeighbour(Dir dir) {
+Field *Field::getNeighbour(Board::Dir dir) {
 	switch (dir) {
-	case WEST:
+	case Board::WEST:
 		return y > 0 ? board->get(x, y - 1) : NULL;
-	case SOUTH:
+	case Board::SOUTH:
 		return x < board->getX() - 1 ? board->get(x + 1, y) : NULL;
-	case EAST:
+	case Board::EAST:
 		return y < board->getY() - 1 ? board->get(x, y + 1) : NULL;
-	case NORTH:
+	case Board::NORTH:
 		return x > 0 ? board->get(x - 1, y) : NULL;
+	default:
+		return (Field *)NULL;
 	}
 }
 
@@ -54,12 +56,12 @@ bool Field::isFree() {
 	return tile == NULL;
 }
 
-char *Field::getWord(Dir dir) const {
+char *Field::getWord(Board::Dir dir) const {
   int _y = y;
   int _x = x;
   int at = 0;
-  int vx = dir == SOUTH ? 1 : 0;
-  int vy = dir == EAST ? 1 : 0;
+  int vx = dir == Board::SOUTH ? 1 : 0;
+  int vy = dir == Board::EAST ? 1 : 0;
 
   static char *word = new char[board->getMaxWordSize()];
 

@@ -10,13 +10,12 @@
 
 #include <iostream>
 #include "Tile.h"
+#include "Board.h"
 
-class Board;
+//class Board;
 
 class Field {
 public:
-	enum Dir {NORTH, EAST, SOUTH, WEST};
-
 	Field(int _x, int _y, Board *b) :
 			x(_x), y(_y), tile(NULL), board(b) {
 	}
@@ -26,12 +25,12 @@ public:
 
 	int getX() const;
 	int getY() const;
-	const Tile *get() const;
+	Tile *get() const;
 	void put(Tile *);
 	bool isFree();
-	char *getWord(Dir dir) const;
+	char *getWord(Board::Dir dir) const;
 
-	Field *getNeighbour(Dir dir);
+	Field *getNeighbour(Board::Dir dir);
 
 	bool operator==(const Field &second) const;
 	bool operator<(const Field &second) const;
