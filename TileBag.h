@@ -13,14 +13,14 @@
 
 class TileBag {
 public:
-   TileBag();
-   virtual ~TileBag();
+	TileBag();
+	virtual ~TileBag();
 
-   Tile *getTile();
-   bool hasTiles();
+	Tile *getTile();
+	bool hasTiles();
 
 private:
-   std::vector<Tile *> tiles;
+	std::vector<Tile *> tiles;
 };
 
 #endif /* TILEBAG_H_ */

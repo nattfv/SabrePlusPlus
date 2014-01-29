@@ -48,7 +48,7 @@ Field *Field::getNeighbour(Board::Dir dir) {
 	case Board::NORTH:
 		return x > 0 ? board->get(x - 1, y) : NULL;
 	default:
-		return (Field *)NULL;
+		return (Field *) NULL;
 	}
 }
 
@@ -57,31 +57,32 @@ bool Field::isFree() {
 }
 
 char *Field::getWord(Board::Dir dir) const {
-  int _y = y;
-  int _x = x;
-  int at = 0;
-  int vx = dir == Board::SOUTH ? 1 : 0;
-  int vy = dir == Board::EAST ? 1 : 0;
+	int _y = y;
+	int _x = x;
+	int at = 0;
+	int vx = dir == Board::SOUTH ? 1 : 0;
+	int vy = dir == Board::EAST ? 1 : 0;
 
-  static char *word = new char[board->getMaxWordSize()];
+	static char *word = new char[board->getMaxWordSize()];
 
-  memset(word, 0, board->getMaxWordSize());
+	memset(word, 0, board->getMaxWordSize());
 
-  while (_y >= 0 && _x >= 0 && board->get(_x, _y)->get() != NULL ) {
-    _y -= vy;
-    _x -= vx;
-  }
-  _y += vy;
-  _x += vx;
+	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->get() != NULL) {
+		_y -= vy;
+		_x -= vx;
+	}
+	_y += vy;
+	_x += vx;
 
-  while (_y < board->getY() && _x < board->getX() && board->get(_x, _y)->get() != NULL) {
-    word[at] = board->get(_x, _y)->get()->getValue();
-    _y += vy;
-    _x += vx;
-    at++;
-  }
+	while (_y < board->getY() && _x < board->getX()
+			&& board->get(_x, _y)->get() != NULL) {
+		word[at] = board->get(_x, _y)->get()->getValue();
+		_y += vy;
+		_x += vx;
+		at++;
+	}
 
-  return word;
+	return word;
 }
 
 std::ostream &operator<<(std::ostream &os, const Field &field) {

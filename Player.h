@@ -15,8 +15,11 @@
 
 class Player {
 public:
-	Player(const char *n, Board *b, TileBag *tb) : name(n), board(b), move(b) {}
-	virtual ~Player() {}
+	Player(const char *n, Board *b, TileBag *tb) :
+			name(n), board(b), move(b) {
+	}
+	virtual ~Player() {
+	}
 
 	const char *getName() const;
 	bool canUseField(Field *) const;

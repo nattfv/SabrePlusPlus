@@ -24,6 +24,9 @@ public:
 	void remove(Field *);
 	bool contains(Field *) const;
 	bool isDirected() const;
+	bool isConsistent(Board::Dir) const;
+	bool isValid() const;
+	bool isAdjacent() const;
 	Board::Dir getDir() const;
 
 private:

@@ -25,9 +25,9 @@ bool Player::canRemoveTileFrom(Field *field) const {
 }
 
 void Player::putTile(Tile *tile, Field *field) {
-    hand.erase( find(hand.begin(), hand.end(), tile) );
-    field->put(tile);
-    move.add(field);
+	hand.erase(find(hand.begin(), hand.end(), tile));
+	field->put(tile);
+	move.add(field);
 }
 
 void Player::removeTile(Field *field) {
