@@ -26,6 +26,7 @@ public:
 	bool isDirected() const;
 	bool isConsistent(Board::Dir) const;
 	bool isValid() const;
+	bool isValidAsFirst() const;
 	bool isAdjacent() const;
 	Board::Dir getDir() const;
 

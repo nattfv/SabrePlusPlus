@@ -18,7 +18,7 @@ int Field::getY() const {
 	return y;
 }
 
-Tile *Field::get() const {
+Tile *Field::getTile() const {
 	return tile;
 }
 
@@ -56,18 +56,17 @@ bool Field::isFree() {
 	return tile == NULL;
 }
 
-char *Field::getWord(Board::Dir dir) const {
+wchar_t *Field::getWord(Board::Dir dir) const {
 	int _y = y;
 	int _x = x;
 	int at = 0;
 	int vx = dir == Board::SOUTH ? 1 : 0;
 	int vy = dir == Board::EAST ? 1 : 0;
+	static wchar_t *word = new wchar_t[board->getMaxWordSize()];
 
-	static char *word = new char[board->getMaxWordSize()];
+	memset(word, 0, sizeof(wchar_t) * board->getMaxWordSize());
 
-	memset(word, 0, board->getMaxWordSize());
-
-	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->get() != NULL) {
+	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->getTile() != NULL) {
 		_y -= vy;
 		_x -= vx;
 	}
@@ -75,8 +74,8 @@ char *Field::getWord(Board::Dir dir) const {
 	_x += vx;
 
 	while (_y < board->getY() && _x < board->getX()
-			&& board->get(_x, _y)->get() != NULL) {
-		word[at] = board->get(_x, _y)->get()->getValue();
+			&& board->get(_x, _y)->getTile() != NULL) {
+		word[at] = board->get(_x, _y)->getTile()->getValue();
 		_y += vy;
 		_x += vx;
 		at++;
@@ -85,6 +84,10 @@ char *Field::getWord(Board::Dir dir) const {
 	return word;
 }
 
-std::ostream &operator<<(std::ostream &os, const Field &field) {
+/*std::ostream &operator<<(std::ostream &os, const Field &field) {
 	return os << "[" << (field.tile ? field.tile->getValue() : '_') << "]";
+}*/
+
+std::wostream &operator<<(std::wostream &os, const Field &field) {
+	return os << "[" << (field.tile ? field.tile->getValue() : (wchar_t)'_') << "]";
 }

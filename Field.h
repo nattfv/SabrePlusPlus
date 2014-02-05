@@ -25,16 +25,17 @@ public:
 
 	int getX() const;
 	int getY() const;
-	Tile *get() const;
+	Tile *getTile() const;
 	void put(Tile *);
 	bool isFree();
-	char *getWord(Board::Dir dir) const;
+	wchar_t *getWord(Board::Dir dir) const;
 
 	Field *getNeighbour(Board::Dir dir);
 
 	bool operator==(const Field &second) const;
 	bool operator<(const Field &second) const;
-	friend std::ostream &operator<<(std::ostream &os, const Field &field);
+	//friend std::ostream &operator<<(std::ostream &os, const Field &field);
+	friend std::wostream &operator<<(std::wostream &os, const Field &field);
 
 private:
 	int x;

@@ -77,17 +77,21 @@ bool Move::isAdjacent() const {
 
 	for (size_t i = 0; i < fields.size(); ++i)
 		for (int dir = Board::NORTH; dir < Board::WRONG; dir++)
-			neighbours.insert(fields[i]->getNeighbour((Board::Dir) dir)->get());
+			neighbours.insert(fields[i]->getNeighbour((Board::Dir) dir)->getTile());
 
 	neighbours.erase(NULL);
 	return fields.size() != neighbours.size();
 }
 
 bool Move::isValid() const {
+	return isValidAsFirst() && isAdjacent();
+}
+
+bool Move::isValidAsFirst() const {
 	Board::Dir dir = getDir();
 
 	if (dir == Board::WRONG)
 		return false;
 
-	return isConsistent(dir) && isAdjacent();
-}
+	return isConsistent(dir);
+};

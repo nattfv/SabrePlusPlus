@@ -31,7 +31,7 @@ public:
 	int getX() const;
 	int getY() const;
 	int getMaxWordSize() const;
-	void printBoard(std::ostream &) const;
+	void printBoard(std::wostream &) const;
 
 	virtual ~Board() {
 	}

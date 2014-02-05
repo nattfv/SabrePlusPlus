@@ -16,27 +16,26 @@
 using namespace std;
 
 void testWord(Board *board, TileBag *bag, Player *player) {
-	char *word;
+	wchar_t *word;
 
 	for (int i = 0; i < 8; ++i)
 		player->takeTile(bag);
 
-	board->get(1, 1)->put(new Tile('x', 1));
-	/*player->putTile(player->pickTile(0), board->get(1,1));*/
+	player->putTile(player->pickTile(0), board->get(1,1));/**/
 	player->putTile(player->pickTile(0), board->get(1, 2));
 	player->putTile(player->pickTile(0), board->get(1, 3));
-	/*player->putTile(player->pickTile(0), board->get(1,4));*/
+	player->putTile(player->pickTile(0), board->get(1,4));/*
 	player->putTile(player->pickTile(0), board->get(0, 3));
-	/*player->putTile(player->pickTile(0), board->get(2,3));
+	player->putTile(player->pickTile(0), board->get(2,3));
 	 player->putTile(player->pickTile(0), board->get(3,3));
 	 player->putTile(player->pickTile(0), board->get(4,3));*/
 
-	cout << (player->getMove()->isValid() ? "VALID" : "NAH") << endl;
+	cout << (player->getMove()->isValidAsFirst() ? "VALID" : "NAH") << endl;
 
 	word = board->get(1, 2)->getWord(Board::EAST);
-	cout << word << endl;
+	wcout << word << endl;
 	word = board->get(3, 3)->getWord(Board::SOUTH);
-	cout << word << endl;
+	wcout << word << endl;
 }
 
 int main() {
@@ -45,6 +44,6 @@ int main() {
 	Player p = Player("Janusz", &board, &bag);
 
 	testWord(&board, &bag, &p);
-	board.printBoard(cout);
+	board.printBoard(wcout);
 	return 0;
 }

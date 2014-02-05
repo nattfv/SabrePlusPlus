@@ -23,7 +23,7 @@ Field *Board::get(int x, int y) {
 	return fields[x][y];
 }
 
-void Board::printBoard(std::ostream& os) const {
+void Board::printBoard(std::wostream& os) const {
 	for (int i = 0; i < fields.size(); ++i) {
 		for (int j = 0; j < fields[0].size(); ++j) {
 			os << *fields[i][j];
