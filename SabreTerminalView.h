@@ -12,6 +12,10 @@
 #include <cstdio>
 #include <iostream>
 
+enum err {
+		CANNOT_PUT, PICK_FIRST, CANNOT_PICK
+};
+
 class SabreTerminalView {
 public:
 	SabreTerminalView(SabreController *c) : controller(c){}
@@ -21,6 +25,7 @@ public:
 private:
 	SabreController *controller;
 	void showTiles();
+	void err(enum err e);
 };
 
 #endif /* SABRETERMINALVIEW_H_ */

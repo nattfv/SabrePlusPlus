@@ -24,10 +24,12 @@ public:
 	void nextPlayer();
 
 	void pickTile(int idx);
-	bool canPutTile(Field *field);
-	void putTile(Field *field);
+	bool canPutTile(int x, int y);
+	void putTile(int x, int y);
 	void gatherTiles();
 	Player *getActivePlayer();
+	Tile *getActiveTile();
+
 	Board *getBoard();
 	TileBag *getTileBag();
 	bool canCommit();

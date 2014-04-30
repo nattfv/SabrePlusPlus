@@ -24,17 +24,17 @@ void testWord(SabreController *controller) {
 	controller->gatherTiles();
 
 	controller->pickTile(0);
-	if (controller->canPutTile(board->get(1,1)))
-		controller->putTile(board->get(1,1));
+	if (controller->canPutTile(1,1))
+		controller->putTile(1,1);
 	controller->pickTile(0);
-	if (controller->canPutTile(board->get(1,2)))
-		controller->putTile(board->get(1,2));
+	if (controller->canPutTile(1,2))
+		controller->putTile(1,2);
 	controller->pickTile(0);
-	if (controller->canPutTile(board->get(1,3)))
-		controller->putTile(board->get(1,3));
+	if (controller->canPutTile(1,3))
+		controller->putTile(1,3);
 	controller->pickTile(0);
-	if (controller->canPutTile(board->get(1,4)))
-		controller->putTile(board->get(1,4));
+	if (controller->canPutTile(1,4))
+		controller->putTile(1,4);
 
 	word = board->get(1, 2)->getWord(Board::EAST);
 	wcout << word << endl;

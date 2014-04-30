@@ -12,6 +12,8 @@
 SabreController::SabreController(Board *board) {
 	this->board = board;
 	firstMove = true;
+	activeTile = NULL;
+	activeField = NULL;
 	this->bag = new TileBag();
 }
 
@@ -46,12 +48,15 @@ void SabreController::pickTile(int idx) {
 	activeTile = tile;
 }
 
-bool SabreController::canPutTile(Field *field) {
+bool SabreController::canPutTile(int x, int y) {
+	Field *field = board->get(x, y);
 	return field->isFree();
 }
 
-void SabreController::putTile(Field *field) {
+void SabreController::putTile(int x, int y) {
+	Field *field = board->get(x, y);
 	activePlayer->putTile(activeTile, field);
+	activeTile = NULL;
 }
 
 void SabreController::gatherTiles() {
@@ -65,6 +70,10 @@ void SabreController::gatherTiles() {
 
 Player *SabreController::getActivePlayer() {
 	return activePlayer;
+}
+
+Tile *SabreController::getActiveTile() {
+	return activeTile;
 }
 
 Board *SabreController::getBoard() {
