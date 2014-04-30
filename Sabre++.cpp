@@ -11,26 +11,30 @@
 #include "Field.h"
 #include "TileBag.h"
 #include "Player.h"
+#include "SabreController.h"
 #include <cstring>
 
 using namespace std;
 
-void testWord(Board *board, TileBag *bag, Player *player) {
+void testWord(SabreController *controller) {
 	wchar_t *word;
+	Player *player = controller->getActivePlayer();
+	Board *board = controller->getBoard();
 
-	for (int i = 0; i < 8; ++i)
-		player->takeTile(bag);
+	controller->gatherTiles();
 
-	player->putTile(player->pickTile(0), board->get(1,1));/**/
-	player->putTile(player->pickTile(0), board->get(1, 2));
-	player->putTile(player->pickTile(0), board->get(1, 3));
-	player->putTile(player->pickTile(0), board->get(1,4));/*
-	player->putTile(player->pickTile(0), board->get(0, 3));
-	player->putTile(player->pickTile(0), board->get(2,3));
-	 player->putTile(player->pickTile(0), board->get(3,3));
-	 player->putTile(player->pickTile(0), board->get(4,3));*/
-
-	cout << (player->getMove()->isValidAsFirst() ? "VALID" : "NAH") << endl;
+	controller->pickTile(0);
+	if (controller->canPutTile(board->get(1,1)))
+		controller->putTile(board->get(1,1));
+	controller->pickTile(0);
+	if (controller->canPutTile(board->get(1,2)))
+		controller->putTile(board->get(1,2));
+	controller->pickTile(0);
+	if (controller->canPutTile(board->get(1,3)))
+		controller->putTile(board->get(1,3));
+	controller->pickTile(0);
+	if (controller->canPutTile(board->get(1,4)))
+		controller->putTile(board->get(1,4));
 
 	word = board->get(1, 2)->getWord(Board::EAST);
 	wcout << word << endl;
@@ -40,10 +44,18 @@ void testWord(Board *board, TileBag *bag, Player *player) {
 
 int main() {
 	Board board = Board(5, 6);
-	TileBag bag;
-	Player p = Player("Janusz", &board, &bag);
+	SabreController controller(&board);
 
-	testWord(&board, &bag, &p);
+	controller.addPlayer("Janusz");
+	controller.addPlayer("Kuzmierz");
+	controller.nextPlayer();
+	controller.nextPlayer();
+	cout << controller.getActivePlayer()->getName() << endl;
+	cout << controller.getActivePlayer()->getPoints() << endl;
+	testWord(&controller);
+	cout << "Can commit? " << (controller.canCommit() ? "yes" : "no") << endl;
+	controller.commit();
+	cout << "Score: " << controller.getActivePlayer()->getPoints() << endl;
 	board.printBoard(wcout);
 	return 0;
 }

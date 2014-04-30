@@ -51,6 +51,10 @@ Tile *TileBag::getTile() {
 	return tile;
 }
 
+bool TileBag::empty() {
+	return tiles.empty();
+}
+
 TileBag::~TileBag() {
 	// TODO Auto-generated destructor stub
 }

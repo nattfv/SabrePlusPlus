@@ -95,3 +95,14 @@ bool Move::isValidAsFirst() const {
 
 	return isConsistent(dir);
 };
+
+int Move::getScore() const {
+	int sum;
+
+	for (std::vector<Field *>::const_iterator it = fields.begin(); it != fields.end(); ++it) {
+		Tile *tile = (*it)->getTile();
+		if (tile)
+			sum += tile->getPoints();
+	}
+	return sum;
+}

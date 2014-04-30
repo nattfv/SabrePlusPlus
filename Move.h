@@ -28,6 +28,7 @@ public:
 	bool isValid() const;
 	bool isValidAsFirst() const;
 	bool isAdjacent() const;
+	int getScore() const;
 	Board::Dir getDir() const;
 
 private:

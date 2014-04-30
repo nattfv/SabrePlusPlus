@@ -49,3 +49,15 @@ Tile *Player::pickTile(int idx) const {
 const Move *Player::getMove() const {
 	return &move;
 }
+
+int Player::getHandSize() const {
+	return hand.size();
+}
+
+int Player::getPoints() const {
+	return points;
+}
+
+void Player::addPoints(int p) {
+	points += p;
+}

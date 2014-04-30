@@ -17,7 +17,7 @@ public:
 	virtual ~TileBag();
 
 	Tile *getTile();
-	bool hasTiles();
+	bool empty();
 
 private:
 	std::vector<Tile *> tiles;

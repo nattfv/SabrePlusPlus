@@ -7,19 +7,22 @@
 
 #include "SabreController.h"
 #include <cstring>
+#include <algorithm>
 
 SabreController::SabreController(Board *board) {
 	this->board = board;
-
+	firstMove = true;
+	this->bag = new TileBag();
 }
 
 SabreController::~SabreController() {
-	// TODO Auto-generated destructor stub
+	delete bag;
 }
 
 void SabreController::addPlayer(const char *name) {
 	Player *player = new Player(name, board, bag);
 	players.push_back(player);
+	activePlayer = players.front();
 }
 
 void SabreController::removePlayer(const char *name) {
@@ -31,18 +34,59 @@ void SabreController::removePlayer(const char *name) {
 	}
 }
 
-void SabreController::tileChosen(Tile *tile) {
-	/*TODO: manage activeTile & activePlayer etc */
+void SabreController::nextPlayer() {
+	std::vector<Player *>::iterator p = std::find(players.begin(), players.end(), activePlayer);
+	p++;
+	activePlayer = p == players.end() ? players.front() : *p;
 }
 
-void SabreController::fieldChosen(Field *field) {
-
+void SabreController::pickTile(int idx) {
+	Tile *tile = activePlayer->pickTile(idx);
+	activeTile = tile;
 }
 
-void SabreController::commitChosen() {
-
+bool SabreController::canPutTile(Field *field) {
+	return field->isFree();
 }
 
-void SabreController::tileFlushChosen() {
+void SabreController::putTile(Field *field) {
+	activePlayer->putTile(activeTile, field);
+}
+
+void SabreController::gatherTiles() {
+	bool done = activePlayer->getHandSize() == MAX_TILES || bag->empty();
+
+	while (!done) {
+		activePlayer->takeTile(bag);
+		done = activePlayer->getHandSize() == MAX_TILES || bag->empty();
+	}
+}
+
+Player *SabreController::getActivePlayer() {
+	return activePlayer;
+}
+
+Board *SabreController::getBoard() {
+	return board;
+}
+
+TileBag *SabreController::getTileBag() {
+	return bag;
+}
+
+bool SabreController::canCommit() {
+	if (firstMove) {
+		firstMove = false;
+		return activePlayer->getMove()->isValidAsFirst();
+	}
+	return activePlayer->getMove()->isValid();
+}
+
+void SabreController::commit() {
+	const Move *move = activePlayer->getMove();
+	activePlayer->addPoints(move->getScore());
+}
+
+void SabreController::flushTiles() {
 
 }
