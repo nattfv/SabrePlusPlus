@@ -23,6 +23,7 @@ void SabreController::addPlayer(const char *name) {
 	Player *player = new Player(name, board, bag);
 	players.push_back(player);
 	activePlayer = players.front();
+
 }
 
 void SabreController::removePlayer(const char *name) {

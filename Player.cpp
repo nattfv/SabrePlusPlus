@@ -61,3 +61,11 @@ int Player::getPoints() const {
 void Player::addPoints(int p) {
 	points += p;
 }
+
+std::vector<Tile *>::iterator Player::handBegin() {
+	return hand.begin();
+}
+
+std::vector<Tile *>::iterator Player::handEnd() {
+	return hand.end();
+}

@@ -12,13 +12,13 @@
 #include "TileBag.h"
 #include "Player.h"
 #include "SabreController.h"
+#include "SabreTerminalView.h"
 #include <cstring>
 
 using namespace std;
 
 void testWord(SabreController *controller) {
 	wchar_t *word;
-	Player *player = controller->getActivePlayer();
 	Board *board = controller->getBoard();
 
 	controller->gatherTiles();
@@ -45,11 +45,10 @@ void testWord(SabreController *controller) {
 int main() {
 	Board board = Board(5, 6);
 	SabreController controller(&board);
+	SabreTerminalView view(&controller);
 
-	controller.addPlayer("Janusz");
-	controller.addPlayer("Kuzmierz");
-	controller.nextPlayer();
-	controller.nextPlayer();
+	view.start();
+
 	cout << controller.getActivePlayer()->getName() << endl;
 	cout << controller.getActivePlayer()->getPoints() << endl;
 	testWord(&controller);

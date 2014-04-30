@@ -28,6 +28,8 @@ public:
 	void removeTile(Field *);
 	void takeTile(TileBag *);
 	int getHandSize() const;
+	std::vector<Tile *>::iterator handBegin();
+	std::vector<Tile *>::iterator handEnd();
 	Tile *pickTile(int idx) const;
 	const Move *getMove() const;
 
