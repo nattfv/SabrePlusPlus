@@ -20,6 +20,10 @@ void Move::remove(Field *field) {
 	fields.erase(find(fields.begin(), fields.end(), field));
 }
 
+void Move::clear() {
+	fields.clear();
+}
+
 bool Move::contains(Field *field) const {
 	return find(fields.begin(), fields.end(), field) != fields.end();
 }
@@ -75,16 +79,28 @@ bool Move::isConsistent(Board::Dir dir) const {
 bool Move::isAdjacent() const {
 	set<Tile *> neighbours;
 
-	for (size_t i = 0; i < fields.size(); ++i)
-		for (int dir = Board::NORTH; dir < Board::WRONG; dir++)
+	for (size_t i = 0; i < fields.size(); ++i) {
+		for (int dir = Board::NORTH; dir < Board::WRONG; dir++) {
+			neighbours.insert(fields[i]->getTile());
 			neighbours.insert(fields[i]->getNeighbour((Board::Dir) dir)->getTile());
-
+		}
+	}
 	neighbours.erase(NULL);
+
 	return fields.size() != neighbours.size();
 }
 
 bool Move::isValid() const {
-	return isValidAsFirst() && isAdjacent();
+	Board::Dir dir;
+
+	if (fields.size() == 0)
+		return false;
+
+	dir = getDir();
+	if (dir == Board::WRONG)
+		return false;
+
+	return isConsistent(dir) && isAdjacent();
 }
 
 bool Move::isValidAsFirst() const {
@@ -95,6 +111,9 @@ bool Move::isValidAsFirst() const {
 
 	dir = getDir();
 	if (dir == Board::WRONG)
+		return false;
+
+	if (find(fields.begin(), fields.end(), board->getCentre()) == fields.end())
 		return false;
 
 	return isConsistent(dir);
@@ -120,5 +139,9 @@ set<wstring> Move::getWords() const {
 		ret.insert(f->getWord(Board::SOUTH));
 	}
 	return ret;
+}
+
+std::vector<Field *> Move::getFieldsCopy() {
+	return fields;
 }
 

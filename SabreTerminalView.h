@@ -20,7 +20,7 @@ public:
 	void start();
 private:
 	enum err {
-			CANNOT_COMMIT, CANNOT_PUT, PICK_FIRST, CANNOT_PICK
+			CANNOT_COMMIT, CANNOT_PUT, PICK_FIRST, CANNOT_PICK, NOT_IN_DICT
 	};
 	SabreController *controller;
 	void showTiles();

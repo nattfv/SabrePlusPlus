@@ -39,6 +39,7 @@ public:
 	TileBag *getTileBag();
 	bool canCommit();
 	void commit();
+	void rollback();
 	bool isMoveCorrect();
 	void flushTiles();
 

@@ -31,7 +31,7 @@ public:
 	std::vector<Tile *>::iterator handBegin();
 	std::vector<Tile *>::iterator handEnd();
 	Tile *pickTile(int idx) const;
-	const Move *getMove() const;
+	Move *getMove();
 
 	int getPoints() const;
 	void addPoints(int);

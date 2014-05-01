@@ -98,10 +98,18 @@ bool SabreController::canCommit() {
 }
 
 void SabreController::commit() {
-	const Move *move = activePlayer->getMove();
+	Move *move = activePlayer->getMove();
 	activePlayer->addPoints(move->getScore());
+	move->clear();
 }
-#include <iostream>
+
+void SabreController::rollback() {
+	vector<Field *> fields = activePlayer->getMove()->getFieldsCopy();
+	for (vector<Field *>::iterator it = fields.begin(); it != fields.end(); ++it) {
+		activePlayer->removeTile(*it);
+	}
+}
+
 bool SabreController::isMoveCorrect() {
 	size_t max_length = 0;
 	set<wstring> words = activePlayer->getMove()->getWords();

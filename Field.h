@@ -17,7 +17,7 @@
 class Field {
 public:
 	Field(int _x, int _y, Board *b) :
-			x(_x), y(_y), tile(NULL), board(b), fieldBonus(1), wordBonus(1) {
+			x(_x), y(_y), tile(NULL), board(b), fieldBonus(1), wordBonus(1), token('_') {
 	}
 
 	virtual ~Field() {
@@ -44,7 +44,7 @@ protected:
 	Board *board;
 	int fieldBonus;
 	int wordBonus;
-
+	wchar_t token;
 };
 
 class LightBlueField : public Field {
@@ -53,6 +53,7 @@ public:
 		Field(_x, _y, b) {
 		fieldBonus = 2;
 		wordBonus = 1;
+		token = 'L';
 	}
 
 	virtual ~LightBlueField() {
@@ -65,6 +66,7 @@ public:
 		Field(_x, _y, b) {
 		fieldBonus = 3;
 		wordBonus = 1;
+		token = 'D';
 	}
 	virtual ~DarkBlueField() {
 	}
@@ -76,6 +78,7 @@ public:
 		Field(_x, _y, b) {
 		fieldBonus = 1;
 		wordBonus = 2;
+		token = 'O';
 	}
 	virtual ~OrangeField() {
 	}
@@ -87,6 +90,7 @@ public:
 		Field(_x, _y, b) {
 		fieldBonus = 1;
 		wordBonus = 3;
+		token = 'R';
 	}
 	virtual ~RedField() {
 	}

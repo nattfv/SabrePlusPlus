@@ -17,6 +17,10 @@
 
 using namespace std;
 
+#ifndef BOARD_PATH
+#define BOARD_PATH "board/board.dat"
+#endif
+
 void testWord(SabreController *controller) {
 	wstring word;
 	Board *board = controller->getBoard();
@@ -43,18 +47,11 @@ void testWord(SabreController *controller) {
 }
 
 int main() {
-	Board board = Board(5, 6);
+	Board board = Board(15, 15);
+	board.fromFile(BOARD_PATH);
 	SabreController controller(&board);
 	SabreTerminalView view(&controller);
 
 	view.start();
-
-	cout << controller.getActivePlayer()->getName() << endl;
-	cout << controller.getActivePlayer()->getPoints() << endl;
-	testWord(&controller);
-	cout << "Can commit? " << (controller.canCommit() ? "yes" : "no") << endl;
-	controller.commit();
-	cout << "Score: " << controller.getActivePlayer()->getPoints() << endl;
-	board.printBoard(wcout);
 	return 0;
 }

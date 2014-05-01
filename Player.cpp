@@ -46,7 +46,7 @@ Tile *Player::pickTile(int idx) const {
 	return hand[idx];
 }
 
-const Move *Player::getMove() const {
+Move *Player::getMove() {
 	return &move;
 }
 

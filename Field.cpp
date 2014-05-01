@@ -87,5 +87,5 @@ wstring Field::getWord(Board::Dir dir) const {
 }*/
 
 std::wostream &operator<<(std::wostream &os, const Field &field) {
-	return os << "[" << (field.tile ? field.tile->getValue() : (wchar_t)'_') << "]";
+	return os << "[" << (field.tile ? field.tile->getValue() : field.token) << "]";
 }

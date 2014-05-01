@@ -40,6 +40,9 @@ void SabreTerminalView::err(enum err err) {
 	case CANNOT_PICK:
 		cout << "Not enough tiles." << endl;
 		break;
+	case NOT_IN_DICT:
+		cout << "Word not in dictionary." << endl;
+		break;
 	default:
 		cout << "Error!" << endl;
 		break;
@@ -101,9 +104,14 @@ void SabreTerminalView::start() {
 			if (controller->canCommit()) {
 				if (controller->isMoveCorrect()) {
 					controller->commit();
+					cout << "Move commited!" << endl;
 				} else {
-					err(CANNOT_COMMIT);
+					err(NOT_IN_DICT);
+					controller->rollback();
 				}
+				controller->nextPlayer();
+				controller->gatherTiles();
+				cout << "Player: " << controller->getActivePlayer()->getName() << endl << endl;
 			} else {
 				err(CANNOT_COMMIT);
 			}

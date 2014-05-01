@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
 
 #ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -30,6 +31,8 @@ public:
 	Field *get(int x, int y);
 	int getX() const;
 	int getY() const;
+	Field *getCentre() const;
+	void fromFile(std::string path);
 	int getMaxWordSize() const;
 	void printBoard(std::wostream &) const;
 

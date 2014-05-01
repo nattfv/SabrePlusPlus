@@ -24,6 +24,7 @@ public:
 
 	void add(Field *);
 	void remove(Field *);
+	void clear();
 	bool contains(Field *) const;
 	bool isDirected() const;
 	bool isConsistent(Board::Dir) const;
@@ -31,6 +32,7 @@ public:
 	bool isValidAsFirst() const;
 	bool isAdjacent() const;
 	int getScore() const;
+	std::vector<Field *> getFieldsCopy();
 	Board::Dir getDir() const;
 	std::set<std::wstring> getWords() const;
 
