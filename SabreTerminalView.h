@@ -12,10 +12,6 @@
 #include <cstdio>
 #include <iostream>
 
-enum err {
-		CANNOT_PUT, PICK_FIRST, CANNOT_PICK
-};
-
 class SabreTerminalView {
 public:
 	SabreTerminalView(SabreController *c) : controller(c){}
@@ -23,6 +19,9 @@ public:
 
 	void start();
 private:
+	enum err {
+			CANNOT_COMMIT, CANNOT_PUT, PICK_FIRST, CANNOT_PICK
+	};
 	SabreController *controller;
 	void showTiles();
 	void err(enum err e);

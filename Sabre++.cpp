@@ -18,7 +18,7 @@
 using namespace std;
 
 void testWord(SabreController *controller) {
-	wchar_t *word;
+	wstring word;
 	Board *board = controller->getBoard();
 
 	controller->gatherTiles();

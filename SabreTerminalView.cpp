@@ -28,6 +28,9 @@ void SabreTerminalView::showTiles() {
 
 void SabreTerminalView::err(enum err err) {
 	switch (err) {
+	case CANNOT_COMMIT:
+		cout << "Cannot commit - move is invalid." << endl;
+		break;
 	case CANNOT_PUT:
 		cout << "Cannot put tile here." << endl;
 		break;
@@ -47,6 +50,7 @@ static void showHelp() {
 	cout << "Commands:" << endl
 			 << "c <num> - Choose tile number <num>. (Eg: c 1)" << endl
 			 << "p <x> <y> - Put previously picked tile on field <x> <y>. (Eg: p 2 3)" << endl
+			 << "x - Commit move." << endl
 			 << "b - Print board" << endl
 			 << "t - Print tiles" << endl
 			 << "h - help" << endl
@@ -62,7 +66,6 @@ void SabreTerminalView::start() {
 	for (int i = 0; i < 2; ++i) {
 		cout << "Enter name for player " << i << endl;
 		cin >> pname[i];
-		cout << "Player " << i << " is now " << pname[i] << endl;
 		controller->addPlayer(pname[i]);
 	}
 
@@ -83,15 +86,26 @@ void SabreTerminalView::start() {
 			wcout << "Picked " << controller->getActiveTile()->getValue() << endl;
 			break;
 		case 'p':
+			cin >> x >> y;
 			if (!controller->getActiveTile()) {
 				err(PICK_FIRST);
 				break;
 			}
-			cin >> x >> y;
 			if (controller->canPutTile(x, y)) {
 				controller->putTile(x, y);
 			} else {
 				err(CANNOT_PUT);
+			}
+			break;
+		case 'x':
+			if (controller->canCommit()) {
+				if (controller->isMoveCorrect()) {
+					controller->commit();
+				} else {
+					err(CANNOT_COMMIT);
+				}
+			} else {
+				err(CANNOT_COMMIT);
 			}
 			break;
 		case 'b':

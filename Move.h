@@ -11,11 +11,13 @@
 #include "Board.h"
 #include "Field.h"
 #include <vector>
+#include <set>
+#include <string>
 
 class Move {
 public:
 	Move(Board *b) :
-			board(b) {
+			board(b), fields() {
 	}
 	virtual ~Move() {
 	}
@@ -30,6 +32,7 @@ public:
 	bool isAdjacent() const;
 	int getScore() const;
 	Board::Dir getDir() const;
+	std::set<std::wstring> getWords() const;
 
 private:
 	Board *board;

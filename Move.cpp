@@ -88,8 +88,12 @@ bool Move::isValid() const {
 }
 
 bool Move::isValidAsFirst() const {
-	Board::Dir dir = getDir();
+	Board::Dir dir;
 
+	if (fields.size() == 0)
+		return false;
+
+	dir = getDir();
 	if (dir == Board::WRONG)
 		return false;
 
@@ -106,3 +110,15 @@ int Move::getScore() const {
 	}
 	return sum;
 }
+
+set<wstring> Move::getWords() const {
+	set<wstring> ret;
+
+	for (vector<Field *>::const_iterator it = fields.begin(); it != fields.end(); ++it) {
+		const Field *f = *it;
+		ret.insert(f->getWord(Board::EAST));
+		ret.insert(f->getWord(Board::SOUTH));
+	}
+	return ret;
+}
+

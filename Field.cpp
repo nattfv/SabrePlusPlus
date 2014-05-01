@@ -10,6 +10,8 @@
 #include "Tile.h"
 #include <cstring>
 
+using namespace std;
+
 int Field::getX() const {
 	return x;
 }
@@ -56,15 +58,12 @@ bool Field::isFree() {
 	return tile == NULL;
 }
 
-wchar_t *Field::getWord(Board::Dir dir) const {
+wstring Field::getWord(Board::Dir dir) const {
 	int _y = y;
 	int _x = x;
-	int at = 0;
 	int vx = dir == Board::SOUTH ? 1 : 0;
 	int vy = dir == Board::EAST ? 1 : 0;
-	static wchar_t *word = new wchar_t[board->getMaxWordSize()];
-
-	memset(word, 0, sizeof(wchar_t) * board->getMaxWordSize());
+	wstring word;
 
 	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->getTile() != NULL) {
 		_y -= vy;
@@ -75,12 +74,11 @@ wchar_t *Field::getWord(Board::Dir dir) const {
 
 	while (_y < board->getY() && _x < board->getX()
 			&& board->get(_x, _y)->getTile() != NULL) {
-		word[at] = board->get(_x, _y)->getTile()->getValue();
+		word += board->get(_x, _y)->getTile()->getValue();
 		_y += vy;
 		_x += vx;
-		at++;
-	}
 
+	}
 	return word;
 }
 

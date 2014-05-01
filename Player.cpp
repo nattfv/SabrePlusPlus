@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const char *Player::getName() const {
+string Player::getName() const {
 	return name;
 }
 

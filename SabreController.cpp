@@ -9,28 +9,33 @@
 #include <cstring>
 #include <algorithm>
 
-SabreController::SabreController(Board *board) {
-	this->board = board;
+using namespace std;
+
+SabreController::SabreController(Board *b) {
+	board = b;
 	firstMove = true;
 	activeTile = NULL;
 	activeField = NULL;
-	this->bag = new TileBag();
+	bag = new TileBag();
+	dict = new Dictionary();
+	dict->loadFile(DICT_PATH);
 }
 
 SabreController::~SabreController() {
+	delete dict;
 	delete bag;
 }
 
-void SabreController::addPlayer(const char *name) {
+void SabreController::addPlayer(string name) {
 	Player *player = new Player(name, board, bag);
 	players.push_back(player);
 	activePlayer = players.front();
 
 }
 
-void SabreController::removePlayer(const char *name) {
+void SabreController::removePlayer(string name) {
 	for (std::vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
-		if (!strcmp((*it)->getName(), name)) {
+		if ((*it)->getName() == name) {
 			players.erase(it);
 			break;
 		}
@@ -95,6 +100,24 @@ bool SabreController::canCommit() {
 void SabreController::commit() {
 	const Move *move = activePlayer->getMove();
 	activePlayer->addPoints(move->getScore());
+}
+#include <iostream>
+bool SabreController::isMoveCorrect() {
+	size_t max_length = 0;
+	set<wstring> words = activePlayer->getMove()->getWords();
+
+	for (set<wstring>::iterator it = words.begin(); it != words.end(); ++it)
+		max_length = MAX(max_length, it->length());
+
+	/* Special case, only one tile was set as first move */
+	if (max_length == 1)
+		return dict->contains(*(words.begin()));
+
+	for (set<wstring>::iterator it = words.begin(); it != words.end(); ++it)
+		if (it->length() > 1 && !dict->contains(*it))
+			return false;
+
+	return true;
 }
 
 void SabreController::flushTiles() {
