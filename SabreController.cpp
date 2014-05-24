@@ -11,19 +11,23 @@
 
 using namespace std;
 
-SabreController::SabreController(Board *b) {
+SabreController::SabreController(Board *b, const char *dictPath) {
 	board = b;
 	firstMove = true;
-	activeTile = NULL;
-	activeField = NULL;
+	activeTile = nullptr;
+	activeField = nullptr;
 	bag = new TileBag();
 	dict = new Dictionary();
-	dict->loadFile(DICT_PATH);
+	dict->loadFile(dictPath);
 }
 
 SabreController::~SabreController() {
 	delete dict;
 	delete bag;
+}
+
+void SabreController::loadTileBag(string path) {
+	bag->loadFile(path);
 }
 
 void SabreController::addPlayer(string name) {
@@ -61,7 +65,7 @@ bool SabreController::canPutTile(int x, int y) {
 void SabreController::putTile(int x, int y) {
 	Field *field = board->get(x, y);
 	activePlayer->putTile(activeTile, field);
-	activeTile = NULL;
+	activeTile = nullptr;
 }
 
 void SabreController::gatherTiles() {
@@ -112,16 +116,16 @@ void SabreController::rollback() {
 
 bool SabreController::isMoveCorrect() {
 	size_t max_length = 0;
-	set<wstring> words = activePlayer->getMove()->getWords();
+	set<string> words = activePlayer->getMove()->getWords();
 
-	for (set<wstring>::iterator it = words.begin(); it != words.end(); ++it)
+	for (set<string>::iterator it = words.begin(); it != words.end(); ++it)
 		max_length = MAX(max_length, it->length());
 
 	/* Special case, only one tile was set as first move */
 	if (max_length == 1)
 		return dict->contains(*(words.begin()));
 
-	for (set<wstring>::iterator it = words.begin(); it != words.end(); ++it)
+	for (set<string>::iterator it = words.begin(); it != words.end(); ++it)
 		if (it->length() > 1 && !dict->contains(*it))
 			return false;
 

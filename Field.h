@@ -17,7 +17,7 @@
 class Field {
 public:
 	Field(int _x, int _y, Board *b) :
-			x(_x), y(_y), tile(NULL), board(b), fieldBonus(1), wordBonus(1), token('_') {
+			x(_x), y(_y), tile(nullptr), board(b), fieldBonus(1), wordBonus(1), token('_') {
 	}
 
 	virtual ~Field() {
@@ -28,7 +28,7 @@ public:
 	Tile *getTile() const;
 	void put(Tile *);
 	bool isFree();
-	std::wstring getWord(Board::Dir dir) const;
+	std::string getWord(Board::Dir dir) const;
 
 	Field *getNeighbour(Board::Dir dir);
 
@@ -44,7 +44,7 @@ protected:
 	Board *board;
 	int fieldBonus;
 	int wordBonus;
-	wchar_t token;
+	char token;
 };
 
 class LightBlueField : public Field {

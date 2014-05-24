@@ -15,14 +15,12 @@
 
 #define MAX_TILES (7)
 
-#ifndef DICT_PATH
-#define DICT_PATH "dict/dict.dat"
-#endif
-
 class SabreController {
 public:
-	SabreController(Board *board);
+	SabreController(Board *board, const char *dictPath);
 	virtual ~SabreController();
+
+	void loadTileBag(std::string path);
 
 	void addPlayer(std::string name);
 	void removePlayer(std::string name);

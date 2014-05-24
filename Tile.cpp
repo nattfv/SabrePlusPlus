@@ -17,6 +17,6 @@ int Tile::getPoints() const {
 	return points;
 }
 
-wchar_t Tile::getValue() const {
+char Tile::getValue() const {
 	return value;
 }

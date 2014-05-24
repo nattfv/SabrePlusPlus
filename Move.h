@@ -34,7 +34,7 @@ public:
 	int getScore() const;
 	std::vector<Field *> getFieldsCopy();
 	Board::Dir getDir() const;
-	std::set<std::wstring> getWords() const;
+	std::set<std::string> getWords() const;
 
 private:
 	Board *board;

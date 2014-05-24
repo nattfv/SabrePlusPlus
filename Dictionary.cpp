@@ -20,15 +20,16 @@ Dictionary::~Dictionary() {
 }
 
 void Dictionary::loadFile(std::string path) {
-	wifstream s;
-	wstring line;
+	ifstream s;
+	string line;
 
 	s.open(path.c_str());
 	while (getline(s, line)) {
 		data.insert(line);
 	}
 }
-bool Dictionary::contains(std::wstring str) {
+
+bool Dictionary::contains(std::string str) {
 	return data.find(str) != data.end();
 }
 

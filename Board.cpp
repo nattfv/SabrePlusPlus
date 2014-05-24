@@ -49,9 +49,9 @@ int Board::getMaxWordSize() const {
 }
 
 void Board::fromFile(string path) {
-	wifstream s;
-	wchar_t c;
-	wstring dummy;
+	ifstream s;
+	char c;
+	string dummy;
 	Field *f;
 
 	s.open(path.c_str());

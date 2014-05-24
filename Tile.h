@@ -10,15 +10,15 @@
 
 class Tile {
 public:
-   Tile(wchar_t v, int p) : value(v), points(p){}
+   Tile(char v, int p) : value(v), points(p){}
    Tile(const Tile& orig);
    virtual ~Tile();
 
    int getPoints() const;
-   wchar_t getValue() const;
+   char getValue() const;
 
 private:
-   wchar_t value;
+   char value;
    int points;
 };
 

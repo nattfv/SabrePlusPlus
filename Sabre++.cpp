@@ -13,7 +13,9 @@
 #include "Player.h"
 #include "SabreController.h"
 #include "SabreTerminalView.h"
+
 #include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,37 +23,41 @@ using namespace std;
 #define BOARD_PATH "board/board.dat"
 #endif
 
-void testWord(SabreController *controller) {
-	wstring word;
-	Board *board = controller->getBoard();
+#ifndef TILEBAG_PATH
+#define TILEBAG_PATH "tilebag/bag.dat"
+#endif
 
-	controller->gatherTiles();
+#ifndef DICT_PATH
+#define DICT_PATH "dict/dict.dat"
+#endif
 
-	controller->pickTile(0);
-	if (controller->canPutTile(1,1))
-		controller->putTile(1,1);
-	controller->pickTile(0);
-	if (controller->canPutTile(1,2))
-		controller->putTile(1,2);
-	controller->pickTile(0);
-	if (controller->canPutTile(1,3))
-		controller->putTile(1,3);
-	controller->pickTile(0);
-	if (controller->canPutTile(1,4))
-		controller->putTile(1,4);
+int main(int argc,char *argv[]) {
+	const char *dictPath = DICT_PATH;
+	SabreView *view = new SabreTerminalView();
 
-	word = board->get(1, 2)->getWord(Board::EAST);
-	wcout << word << endl;
-	word = board->get(3, 3)->getWord(Board::SOUTH);
-	wcout << word << endl;
-}
+	view->showLoading();
 
-int main() {
 	Board board = Board(15, 15);
-	board.fromFile(BOARD_PATH);
-	SabreController controller(&board);
-	SabreTerminalView view(&controller);
+	SabreController controller(&board, dictPath);
+	view->setController(&controller);
 
-	view.start();
+	view->dismissLoading();
+
+	switch(argc) {
+	case 0:
+		break;
+	case 1:
+		dictPath = argv[0];
+		break;
+	default:
+		cout << "Usage: ./Sabre++ [dictionary-path]";
+		exit(1);
+	}
+
+	board.fromFile(BOARD_PATH);
+	controller.loadTileBag(TILEBAG_PATH);
+	view->start();
+
+	delete view;
 	return 0;
 }

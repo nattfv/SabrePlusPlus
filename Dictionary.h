@@ -17,9 +17,9 @@ public:
 	virtual ~Dictionary();
 
 	void loadFile(std::string path);
-	bool contains(std::wstring str);
+	bool contains(std::string str);
 private:
-	std::set<std::wstring> data;
+	std::set<std::string> data;
 };
 
 #endif /* DICTIONARY_H_ */

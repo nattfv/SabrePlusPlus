@@ -6,11 +6,13 @@
  */
 
 #include "SabreTerminalView.h"
+#include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
-SabreTerminalView::~SabreTerminalView() {
-	// TODO Auto-generated destructor stub
+void SabreTerminalView::setController(SabreController *c) {
+	controller = c;
 }
 
 void SabreTerminalView::showTiles() {
@@ -49,7 +51,7 @@ void SabreTerminalView::err(enum err err) {
 	}
 }
 
-static void showHelp() {
+void showHelp() {
 	cout << "Commands:" << endl
 			 << "c <num> - Choose tile number <num>. (Eg: c 1)" << endl
 			 << "p <x> <y> - Put previously picked tile on field <x> <y>. (Eg: p 2 3)" << endl
@@ -76,7 +78,7 @@ void SabreTerminalView::start() {
 
 	/* Player 1 gathers tiles */
 	controller->gatherTiles();
-	while (!done) {
+	while (!done && cin.good()) {
 		cin >> command;
 		switch (command) {
 		case 'c':
@@ -130,4 +132,29 @@ void SabreTerminalView::start() {
 		}
 	}
 }
+
+void processLoading(SabreTerminalView *view) {
+	cout << "Loading. Please wait" << endl;
+	while(view->loadingOccurs()) {
+		cout << '.';
+		cout.flush();
+		sleep(1);
+	}
+	cout << endl;
+}
+
+bool SabreTerminalView::loadingOccurs() const {
+	return loading;
+}
+
+void SabreTerminalView::showLoading() {
+	loading = true;
+	loader = new thread(processLoading, this);
+}
+void SabreTerminalView::dismissLoading() {
+	loading = false;
+	loader->join();
+	delete loader;
+}
+
 

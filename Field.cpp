@@ -42,30 +42,30 @@ bool Field::operator<(const Field &second) const {
 Field *Field::getNeighbour(Board::Dir dir) {
 	switch (dir) {
 	case Board::WEST:
-		return y > 0 ? board->get(x, y - 1) : NULL;
+		return y > 0 ? board->get(x, y - 1) : nullptr;
 	case Board::SOUTH:
-		return x < board->getX() - 1 ? board->get(x + 1, y) : NULL;
+		return x < board->getX() - 1 ? board->get(x + 1, y) : nullptr;
 	case Board::EAST:
-		return y < board->getY() - 1 ? board->get(x, y + 1) : NULL;
+		return y < board->getY() - 1 ? board->get(x, y + 1) : nullptr;
 	case Board::NORTH:
-		return x > 0 ? board->get(x - 1, y) : NULL;
+		return x > 0 ? board->get(x - 1, y) : nullptr;
 	default:
-		return (Field *) NULL;
+		return (Field *) nullptr;
 	}
 }
 
 bool Field::isFree() {
-	return tile == NULL;
+	return tile == nullptr;
 }
 
-wstring Field::getWord(Board::Dir dir) const {
+string Field::getWord(Board::Dir dir) const {
 	int _y = y;
 	int _x = x;
 	int vx = dir == Board::SOUTH ? 1 : 0;
 	int vy = dir == Board::EAST ? 1 : 0;
-	wstring word;
+	string word;
 
-	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->getTile() != NULL) {
+	while (_y >= 0 && _x >= 0 && board->get(_x, _y)->getTile() != nullptr) {
 		_y -= vy;
 		_x -= vx;
 	}
@@ -73,7 +73,7 @@ wstring Field::getWord(Board::Dir dir) const {
 	_x += vx;
 
 	while (_y < board->getY() && _x < board->getX()
-			&& board->get(_x, _y)->getTile() != NULL) {
+			&& board->get(_x, _y)->getTile() != nullptr) {
 		word += board->get(_x, _y)->getTile()->getValue();
 		_y += vy;
 		_x += vx;

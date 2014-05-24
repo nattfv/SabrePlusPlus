@@ -67,7 +67,7 @@ bool Move::isConsistent(Board::Dir dir) const {
 	}
 
 	field = fields[dir == Board::SOUTH ? minX : minY];
-	while (field != NULL) {
+	while (field != nullptr) {
 		if (contains(field))
 			used++;
 		field = field->getNeighbour(dir);
@@ -85,7 +85,7 @@ bool Move::isAdjacent() const {
 			neighbours.insert(fields[i]->getNeighbour((Board::Dir) dir)->getTile());
 		}
 	}
-	neighbours.erase(NULL);
+	neighbours.erase(nullptr);
 
 	return fields.size() != neighbours.size();
 }
@@ -130,8 +130,8 @@ int Move::getScore() const {
 	return sum;
 }
 
-set<wstring> Move::getWords() const {
-	set<wstring> ret;
+set<string> Move::getWords() const {
+	set<string> ret;
 
 	for (vector<Field *>::const_iterator it = fields.begin(); it != fields.end(); ++it) {
 		const Field *f = *it;

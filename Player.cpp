@@ -34,7 +34,7 @@ void Player::removeTile(Field *field) {
 	Tile *tile = field->getTile();
 
 	hand.push_back(tile);
-	field->put(NULL);
+	field->put(nullptr);
 	move.remove(field);
 }
 

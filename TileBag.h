@@ -10,11 +10,14 @@
 
 #include "Tile.h"
 #include <vector>
+#include <string>
 
 class TileBag {
 public:
 	TileBag();
 	virtual ~TileBag();
+
+	void loadFile(std::string path);
 
 	Tile *getTile();
 	bool empty();
