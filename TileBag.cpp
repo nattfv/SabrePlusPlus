@@ -6,6 +6,7 @@
  */
 
 #include "TileBag.h"
+#include "SabreException.h"
 
 #include <algorithm>
 #include <ctime>
@@ -29,6 +30,11 @@ void TileBag::loadFile(std::string path) {
 	string newline;
 
 	s.open(path.c_str());
+
+	if (!s.is_open()) {
+		throw SabreException("Tile bag file not found.\n");
+	}
+
 	while (s.good()) {
 		s >> c;
 		s >> points >> quantity;

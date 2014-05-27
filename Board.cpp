@@ -7,6 +7,7 @@
 
 #include "Board.h"
 #include "Field.h"
+#include "SabreException.h"
 #include <fstream>
 
 using namespace std;
@@ -55,6 +56,11 @@ void Board::fromFile(string path) {
 	Field *f;
 
 	s.open(path.c_str());
+
+	if (!s.is_open()) {
+		throw SabreException("Board file not found.\n");
+	}
+
 	for (int i = 0; i < getX(); ++i) {
 		for (int j = 0; j < getY(); ++j) {
 			c = s.get();

@@ -6,6 +6,7 @@
  */
 
 #include "Dictionary.h"
+#include "SabreException.h"
 #include <fstream>
 
 using namespace std;
@@ -24,6 +25,11 @@ void Dictionary::loadFile(std::string path) {
 	string line;
 
 	s.open(path.c_str());
+
+	if (!s.is_open()) {
+		throw SabreException("Dictionary file not found.\n");
+	}
+
 	while (getline(s, line)) {
 		data.insert(line);
 	}
