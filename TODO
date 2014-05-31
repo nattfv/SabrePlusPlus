@@ -1,0 +1,11 @@
+1. score:
+	- current implementation counts score as sum of tile values,
+	  never considering bonuses from fields;
+	TODO: implement proper score counting.
+
+	- current GUI does not allow to see player's score;
+	TODO: add 'score' option to SabreTerminalView.
+
+2. exceptions
+	- exceptions are thrown, but not caught;
+	TODO: add exception handling
