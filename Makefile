@@ -1,7 +1,7 @@
 CC=g++
 FLAGS=-Wall -pedantic -pthread -std=c++11
 CFLAGS=$(FLAGS) -c
-VARS=-DBOARD_PATH="\"./board/board.dat\"" -DTILEBAG_PATH="\"./tilebag/bag.dat\"" -DDICT_PATH="\"./dict/dict.dat\""
+VARS=-DBOARD_PATH="\"./data/board/board.dat\"" -DTILEBAG_PATH="\"./data/tilebag/bag.dat\"" -DDICT_PATH="\"./data/dict/dict.dat\""
 SRCDIR=src
 OBJECTS=Board.o Field.o Player.o SabreController.o SabreTerminalView.o SabreView.o Dictionary.o Move.o TileBag.o Tile.o SabreException.o
 
