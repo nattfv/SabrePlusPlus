@@ -1,5 +1,21 @@
-Compilation:
-  make
+This engine is provided with an exemplary view - a SabreTerminalView.
+Any other views should inherit from a SabreView base class.
 
-Usage:
-  ./launch.sh
+Linux/UNIX:
+  Compilation:
+    make
+
+  Usage:
+    ./launch.sh
+
+Other:
+  not provided - do it yourself
+  (and do not forget about a proper thread library).
+
+--------------------------------------------------------------------------------
+Please note that Scrabble is a registered trademark of Hasbro Inc in the US
+and throughout the rest of the world by J.W. Spear & Sons Limited of Maidenhead,
+Berkshire, England, a subsidiary of Mattel Inc.
+Neither myself, nor this repo are affiliated with the Scrabble Crossword Game,
+Hasbro, Spear & Sons or Mattel in any fashion.
+--------------------------------------------------------------------------------
