@@ -59,6 +59,7 @@ void showHelp() {
 			 << "b - Print board" << endl
 			 << "t - Print tiles" << endl
 			 << "h - help" << endl
+			 << "q - Quit" << endl
 			 << "------------" << endl << endl;
 }
 
@@ -76,7 +77,6 @@ void SabreTerminalView::start() {
 
 	showHelp();
 
-	/* Player 1 gathers tiles */
 	controller->gatherTiles();
 	while (!done && cin.good()) {
 		cin >> command;
@@ -127,6 +127,8 @@ void SabreTerminalView::start() {
 		case 'h':
 			showHelp();
 			break;
+		case 'q':
+			exit(0);
 		default:
 			break;
 		}

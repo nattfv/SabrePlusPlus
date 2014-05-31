@@ -117,7 +117,7 @@ bool Move::isValidAsFirst() const {
 		return false;
 
 	return isConsistent(dir);
-};
+}
 
 int Move::getScore() const {
 	int sum;
