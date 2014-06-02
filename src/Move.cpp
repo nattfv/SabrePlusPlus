@@ -46,6 +46,7 @@ Board::Dir Move::getDir() const {
 		return Board::EAST;
 	if (vertical)
 		return Board::SOUTH;
+
 	return Board::WRONG;
 }
 
@@ -127,6 +128,7 @@ int Move::getScore() const {
 		if (tile)
 			sum += tile->getPoints();
 	}
+
 	return sum;
 }
 
@@ -138,6 +140,7 @@ set<string> Move::getWords() const {
 		ret.insert(f->getWord(Board::EAST));
 		ret.insert(f->getWord(Board::SOUTH));
 	}
+
 	return ret;
 }
 
